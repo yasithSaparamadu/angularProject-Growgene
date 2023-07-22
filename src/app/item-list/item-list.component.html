@@ -4,39 +4,33 @@
     <div class="card-container">
       <div
         class="card"
-        [ngClass]="{ selected: selectedImage === 1 }"
-        (click)="selectImage(1)"
+        *ngFor="let cardNumber of cardNumbers; let i = index"
+        [ngClass]="{ selected: selectedImage === i + 1 }"
+        (click)="selectImage(i + 1)"
       >
-        <div class="card-number">1</div>
-        <img class="card-image" [src]="imagePath1" alt="Image 1" />
-      </div>
-      <div
-        class="card"
-        [ngClass]="{ selected: selectedImage === 2 }"
-        (click)="selectImage(2)" 
-      >
-        <div class="card-number">2</div>
-        <img class="card-image" [src]="imagePath2" alt="Image 2" />
-      </div>
-      <div
-        class="card"
-        [ngClass]="{ selected: selectedImage === 3 }"
-        (click)="selectImage(3)"
-      >
-        <div class="card-number">3</div>
-        <img class="card-image" [src]="imagePath3" alt="Image 3" />
+        <div class="card-number">{{ cardNumber }}</div>
+        <img
+          class="card-image"
+          [src]="imageUrls[i]"
+          [alt]="'Image ' + (i + 1)"
+        />
       </div>
     </div>
-    
-    
+    <p class="bottom-text">{{ hoursText }}</p>
+    <br />
+    <div class="hours-card-container">
+      <div>
+        <div *ngIf="selectedImage !== null">
+          <div
+            class="hours-card"
+            *ngFor="let hour of getSelectedCardHours(selectedImage)"
+          >
+            <div class="hours-card-text">{{ hour }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="divider"></div>
-  <div class="right-section">
-    
-    <div>
-      <!-- Content for the right section -->
-    </div>
-  </div>
+  <div class="right-section"></div>
 </div>
-
-
