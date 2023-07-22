@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="left-section">
+    <p class="top-text">{{ cleanersText }}</p>
+    <div class="card-container">
+      <div
+        class="card"
+        [ngClass]="{ selected: selectedImage === 1 }"
+        (click)="selectImage(1)"
+      >
+        <div class="card-number">1</div>
+        <img class="card-image" [src]="imagePath1" alt="Image 1" />
+      </div>
+      <div
+        class="card"
+        [ngClass]="{ selected: selectedImage === 2 }"
+        (click)="selectImage(2)" 
+      >
+        <div class="card-number">2</div>
+        <img class="card-image" [src]="imagePath2" alt="Image 2" />
+      </div>
+      <div
+        class="card"
+        [ngClass]="{ selected: selectedImage === 3 }"
+        (click)="selectImage(3)"
+      >
+        <div class="card-number">3</div>
+        <img class="card-image" [src]="imagePath3" alt="Image 3" />
+      </div>
+    </div>
+    
+    
+  </div>
+  <div class="divider"></div>
+  <div class="right-section">
+    
+    <div>
+      <!-- Content for the right section -->
+    </div>
+  </div>
+</div>
+
+
