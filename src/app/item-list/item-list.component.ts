@@ -12,10 +12,9 @@ export class ItemListComponent implements OnInit {
   selectedImage: number | null = null;
   imageUrls: string[] = [];
   cardNumbers: string[] = [];
-  imagePath1: string = "assets/1person.png";
-  imagePath2: string = "assets/2people.png";
-  imagePath3: string = "assets/3people.png";
-  hoursData: any[] = []; // Updated data structure to hold hours for each card
+  hoursData: any[] = [];
+  unitOfMeasure: string[] = [];
+  subTitle: string[] = [];
 
   constructor(public apiService: ApiService) {}
 
@@ -35,7 +34,13 @@ export class ItemListComponent implements OnInit {
             (item: { displayText: any }) => item.displayText
           );
           this.hoursText = response.data.itemTitle;
-          this.hoursData = response.data.items.map((item: any) => item.items); // Store the hours for each card
+          this.hoursData = response.data.items.map((item: any) => item.items)
+          .map((items: any[]) => items.sort((a, b) => a.sort - b.sort)); // Store the hours for each card
+          this.unitOfMeasure = response.data.items
+          .map((item: any) => item.items.map((hour: any) => hour.unitOfMeasure))
+          .flat();
+          this.subTitle = this.getAllSubTitle(response.data.items);
+        
         } else {
           console.error("Invalid API response format: title not found.");
         }
@@ -47,16 +52,57 @@ export class ItemListComponent implements OnInit {
     );
   }
 
+  // Function to fetch all unitOfMeasure values
+  getAllUnitOfMeasures(items: any[]): string[] {
+    const unitOfMeasures: string[] = [];
+    items.forEach((item) => {
+      item.items.forEach((subItem: any) => {
+        unitOfMeasures.push(subItem.unitOfMeasure);
+      });
+    });
+    return unitOfMeasures;
+  }
+
+  // Function to fetch all substitles values
+  getAllSubTitle(items: any[]): string[] {
+    const subTitle: string[] = [];
+    items.forEach((item) => {
+      item.items.forEach((subItem: any) => {
+        subTitle.push(subItem.subTitle);
+      });
+    });
+    return subTitle;
+  }
+
   selectImage(imageNumber: number) {
     this.selectedImage = imageNumber;
   }
 
   // Function to get the selected card's hours
-   getSelectedCardHours(index: number) {
-    if (this.hoursData[index - 1]) {
+  getSelectedCardHours(index: number): {
+    hour: string;
+    unitPrice: number;
+    minutes: number;
+    unitOfMeasure: string;
+    subTitle: string;
+  }[] {
+    if (this.hoursData && this.hoursData[index - 1]) {
       const selectedCardItems = this.hoursData[index - 1];
-      return selectedCardItems.map((item: any) => item.itemName);
+      return selectedCardItems.map((items: any) => {
+        return {
+          hour: items.itemName,
+          unitPrice: items.unitPrice,
+          minutes: items.minutes,
+          unitOfMeasure: items.unitOfMeasure,
+          subTitle: items.subTitle,
+        };
+      });
     }
     return [];
+  }
+
+  getHourlyPrice(unitPrice: number, minutes: number) {
+    const hours = minutes / 60;
+    return (unitPrice / hours).toFixed(2);
   }
 }

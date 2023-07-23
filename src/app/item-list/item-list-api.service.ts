@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 })
 export class ApiService {
   private apiUrl =
-    "https://us-central1-yellochat-12b69.cloudfunctions.net/sampleTestData"; // Replace with your API URL
+    "https://us-central1-yellochat-12b69.cloudfunctions.net/sampleTestData"; 
 
   constructor(private http: HttpClient) {}
 
