@@ -18,12 +18,24 @@
     </div>
     <p class="top-text">{{ hoursText }}</p>
     <br />
-    <div class="container">
+    <div class="hours-container">
       <div class="hours-card-container">
         <ng-container *ngIf="selectedImage !== null">
           <div
             class="hours-card"
-            *ngFor="let hour of getSelectedCardHours(selectedImage)"
+            *ngFor="
+              let hour of getSelectedCardHours(selectedImage);
+              let i = index
+            "
+            [ngClass]="{ selected: selectedHourCardIndex === i }"
+            (click)="
+              selectHourCard(
+                hour.unitPrice,
+                cardNumbers[selectedImage - 1],
+                hour.hour,
+                i
+              )
+            "
           >
             <div class="hours-card-text">{{ hour.hour }}</div>
           </div>
@@ -36,7 +48,12 @@
             class="unit-price-card"
             *ngFor="let hour of getSelectedCardHours(selectedImage)"
           >
-            <div class="unit-price-card-text">AED {{ getHourlyPrice(hour.unitPrice, hour.minutes) }}  /{{ hour.unitOfMeasure }}</div>
+            <div class="unit-price-card-text">
+              AED
+              {{ getHourlyPrice(hour.unitPrice, hour.minutes).toFixed(2) }} /{{
+                hour.unitOfMeasure
+              }}
+            </div>
             <div class="subtitle-card-text">{{ hour.subTitle }}</div>
           </div>
         </ng-container>
@@ -44,5 +61,35 @@
     </div>
   </div>
 
-  <div class="right-section"></div>
+  <div class="right-section">
+    <!-- Display the selected unit price -->
+    <div class="selected-unit-price" *ngIf="selectedHourCardUnitPrice !== null">
+      AED {{ selectedHourCardUnitPrice.toFixed(2) }}
+    </div>
+    <br />
+    <button class="proceed-button">Proceed to Book</button>
+    <br />
+    <div class="divider-line"></div>
+    <br />
+    <div class="order-summary-container">
+      <div class="order-summary-border">
+        <div class="left-summary">
+          <div
+            class="selected-card-details"
+            *ngIf="selectedCardDetails !== null"
+          >
+            {{ selectedCardDetails }}
+          </div>
+        </div>
+        <div class="right-summary">
+          <!-- Right side content -->
+          <div>
+            <div class="summary-price" *ngIf="selectedCardDetails !== null">
+              AED {{ selectedHourCardUnitPrice?.toFixed(2) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

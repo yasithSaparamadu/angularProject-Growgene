@@ -1,12 +1,17 @@
 .container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr; 
   grid-gap: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
 }
 
 .left-section {
-  border-right: 1px solid #000;
   padding-right: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .card-container {
@@ -14,6 +19,8 @@
   flex-wrap: wrap;
   justify-content: left;
   margin-top: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .hours-card-container {
@@ -40,7 +47,7 @@
 
 .hours-card {
   display: flex;
-  width: 250px;
+  width: 300px;
   height: 50px;
   flex-direction: column;
   margin: 5px;
@@ -53,8 +60,9 @@
   border-color: #0b01010f;
 }
 
-.card.selected {
-  background-color: #f6e2bd;
+.card.selected,
+.hours-card.selected {
+  background-color: #fff4dd;
   border-color: #ecab07;
 }
 
@@ -71,16 +79,26 @@
 
 .right-section {
   padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
 
 .bottom-text {
   margin-left: 10px;
   margin-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .top-text {
   margin-left: 10px;
   margin-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .card-number {
@@ -91,7 +109,7 @@
 
 .hours-card-text {
   text-align: left;
-  margin-left: 20px;
+  margin-left: 5px;
   font-weight: bold;
 }
 
@@ -109,7 +127,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   margin-top: 10px;
-  padding-left: 20px;
+  padding-left: 1px;
 }
 
 .unit-price-card {
@@ -124,15 +142,137 @@
   transition: background-color 0.3s;
 }
 
-.unit-price-card-text{
+.unit-price-card-text {
   text-align: left;
   margin-left: 10px;
   font-weight: bold;
-  color: green; 
+  color: green;
 }
 
-.subtitle-card-text{
+.subtitle-card-text {
   text-align: left;
   margin-left: 10px;
-  color: rgb(7, 7, 7); 
+  color: rgb(7, 7, 7);
+}
+
+.selected-unit-price {
+  text-align: left;
+  color: rgb(7, 7, 7);
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: x-large;
+}
+
+.proceed-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #ecab07;
+  color: #ffffff;
+  border: none;
+  width: 100%;
+  height: 35px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.proceed-button:hover {
+  background-color: #897542;
+}
+
+.proceed-button::after {
+  content: ">";
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.divider-line {
+  width: 100%;
+  height: 1px;
+  background-color: #000;
+  margin-top: 5px;
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 10px;
+  padding-left: 20px;
+  margin-left: auto;
+}
+
+.selected-card-details-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.selected-card-details {
+  display: flex;
+  text-align: left;
+  color: #070707;
+  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.summary-price {
+  display: flex;
+  text-align: right;
+  color: rgb(7, 7, 7);
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.order-summary-container {
+  /* display: grid; */ 
+  /* grid-template-columns: 1fr 1fr; */
+  /* grid-gap: 10px; */
+  width: 100%;
+}
+
+.left-summary {
+  display: flex;
+  align-items: center;
+}
+
+.right-summary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.order-summary-border {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 2px;
+  background-color: #fff4dd;
+  width: 100%;
+  align-items: center;
+  height: 50px;
+  border: 2px solid transparent;
+  transition: background-color 0.3s;
+  border-color: #0b01010f;
+}
+
+.hours-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  grid-gap: 1px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
 }
