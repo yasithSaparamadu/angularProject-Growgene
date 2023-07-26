@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: 1.5fr 1fr; 
+  grid-template-columns: 1.5fr 1fr;
   grid-gap: 20px;
   padding-left: 30px;
   padding-right: 30px;
@@ -9,9 +9,13 @@
 
 .left-section {
   padding-right: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding-left: 10px;
   padding-right: 10px;
+  border-radius: 4px;
+  padding-bottom: 20px;
+  grid-row: 1 / span 2;
+  /* background-color: #f0f0f0; */
 }
 
 .card-container {
@@ -27,7 +31,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 10px;
 }
 
 .card {
@@ -37,6 +40,7 @@
   flex-direction: row-reverse;
   margin: 5px;
   cursor: pointer;
+  border-radius: 4px;
   border: 2px solid transparent;
   align-items: center;
   justify-content: center;
@@ -51,6 +55,7 @@
   height: 50px;
   flex-direction: column;
   margin: 5px;
+  border-radius: 4px;
   cursor: pointer;
   border: 2px solid transparent;
   align-items: left;
@@ -67,8 +72,8 @@
 }
 
 .card-image {
-  max-width: 30px;
-  max-height: 30px;
+  /* width: 30px; */
+  height: 30px;
   object-fit: contain;
 }
 
@@ -80,16 +85,20 @@
 .right-section {
   padding-left: 20px;
   padding-right: 20px;
+  padding-bottom: 20px;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  height: auto;
+  /* background-color: #d3d3d3; */
 }
-
 
 .bottom-text {
   margin-left: 10px;
   margin-bottom: 10px;
+  font-family: "Verdana", sans-serif;
   padding-left: 30px;
   padding-right: 30px;
 }
@@ -97,6 +106,7 @@
 .top-text {
   margin-left: 10px;
   margin-bottom: 10px;
+  font-family: "Verdana", sans-serif;
   padding-left: 30px;
   padding-right: 30px;
 }
@@ -104,12 +114,14 @@
 .card-number {
   margin-right: 10px;
   font-weight: bold;
+  font-family: "Verdana", sans-serif;
   padding-left: 20px;
 }
 
 .hours-card-text {
   text-align: left;
-  margin-left: 5px;
+  font-family: "Verdana", sans-serif;
+  margin-left: 25px;
   font-weight: bold;
 }
 
@@ -117,6 +129,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  font-family: "Verdana", sans-serif;
   padding-left: 10px;
   font-weight: bold;
 }
@@ -145,22 +158,25 @@
 .unit-price-card-text {
   text-align: left;
   margin-left: 10px;
+  font-family: "Verdana", sans-serif;
   font-weight: bold;
   color: green;
 }
 
 .subtitle-card-text {
   text-align: left;
+  font-family: "Verdana", sans-serif;
   margin-left: 10px;
   color: rgb(7, 7, 7);
 }
 
 .selected-unit-price {
-  text-align: left;
+  display: flex;
+  align-items: flex-start;
   color: rgb(7, 7, 7);
+  font-family: "Verdana", sans-serif;
   font-weight: bold;
-  margin-top: 10px;
-  font-size: x-large;
+  font-size: larger;
 }
 
 .proceed-button {
@@ -172,6 +188,7 @@
   width: 100%;
   height: 35px;
   border-radius: 4px;
+  font-family: "Verdana", sans-serif;
   font-weight: bold;
   cursor: pointer;
   font-size: 16px;
@@ -183,7 +200,7 @@
 }
 
 .proceed-button:hover {
-  background-color: #897542;
+  background-color: #dca720;
 }
 
 .proceed-button::after {
@@ -198,7 +215,7 @@
 .divider-line {
   width: 100%;
   height: 1px;
-  background-color: #000;
+  background-color: #afa9a9;
   margin-top: 5px;
 }
 
@@ -208,6 +225,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   margin-top: 10px;
+  font-family: "Verdana", sans-serif;
   padding-left: 20px;
   margin-left: auto;
 }
@@ -223,6 +241,8 @@
   display: flex;
   text-align: left;
   color: #070707;
+  font-size: small;
+  font-family: "Verdana", sans-serif;
   align-items: flex-start;
   justify-content: center;
   align-items: center;
@@ -232,26 +252,36 @@
 .summary-price {
   display: flex;
   text-align: right;
+  font-size: small;
   color: rgb(7, 7, 7);
   align-items: flex-end;
   justify-content: flex-end;
 }
 
 .order-summary-container {
-  /* display: grid; */ 
+  /* display: grid; */
   /* grid-template-columns: 1fr 1fr; */
   /* grid-gap: 10px; */
   width: 100%;
+  display: none;
+}
+
+.order-summary-container.open {
+  display: grid;
 }
 
 .left-summary {
   display: flex;
   align-items: center;
+  font-family: "Verdana", sans-serif;
+  padding-left: 10px;
 }
 
 .right-summary {
   display: flex;
-  align-items: center;
+  font-family: "Verdana", sans-serif;
+  align-items: right;
+  padding-right: 10px;
   justify-content: flex-end;
 }
 
@@ -270,9 +300,147 @@
 
 .hours-container {
   display: grid;
-  grid-template-columns: 1fr 1fr; 
+  grid-template-columns: 1fr 1fr;
   grid-gap: 1px;
   padding-left: 30px;
   padding-right: 30px;
-  padding-top: 10px;
 }
+
+.more-details {
+  color: #c59c34;
+  cursor: pointer;
+  font-family: "Verdana", sans-serif;
+  justify-self: flex-end;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.price-moredetails-container {
+  margin-top: 20px;
+  /* padding: 10px 20px; */
+  width: 100%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.sub-total-text {
+  text-align: left;
+  color: rgb(67, 53, 39);
+  /* font-weight: bold; */
+  font-size: 15px;
+  font-family: "Verdana", sans-serif;
+  margin-top: 10px;
+}
+
+.sub-total {
+  color: rgb(93, 72, 51);
+  cursor: pointer;
+  justify-self: flex-end;
+  font-size: medium;
+  font-weight: bold;
+  font-family: "Verdana", sans-serif;
+  margin-left: auto;
+}
+
+.sub-total-container {
+  margin-top: 10px;
+  /* padding: 10px 20px; */
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.total-text {
+  text-align: left;
+  color: rgb(67, 53, 39);
+  font-size: 15px;
+  /* font-weight: bold; */
+  margin-top: 10px;
+  font-family: "Verdana", sans-serif;
+}
+
+.total {
+  color: rgb(93, 72, 51);
+  cursor: pointer;
+  font-family: "Verdana", sans-serif;
+  justify-self: flex-end;
+  font-size: medium;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.total-container {
+  margin-top: 10px;
+  /* padding: 10px 20px; */
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .container {
+    grid-template-columns: 0.5fr;
+  }
+
+  .left-section,
+  .right-section {
+    padding-left: -10px;
+    padding-right: -10px;
+   
+  }
+
+  .card-container {
+    display: flex;
+    flex-direction: column; /* Change the direction to column to align cards vertically */
+    align-items: center; /* Optionally center the cards horizontally */
+  }
+
+  .card {
+    width: 100%; /* Make the cards take the full width of the container */
+    max-width: 300px; /* Set a maximum width for the cards to control spacing */
+  }
+
+  /* Adjust font sizes and other styles for small screens */
+  .top-text,
+  .hours-text,
+  .card-number,
+  .hours-card-text,
+  .unit-price-card-text,
+  .subtitle-card-text,
+  .selected-unit-price,
+  .more-details,
+  .proceed-button {
+    font-size: 14px;
+  }
+
+  /* Adjust image size for small screens */
+  .card-image {
+    height: 30px;
+  }
+
+  /* Hide the "Total (Inclusive 5% VAT)" and "Sub Total" fields by default on small screens */
+  .total-container,
+  .sub-total-container {
+    display: none;
+  }
+
+  /* Show the "Total (Inclusive 5% VAT)" and "Sub Total" fields when the order summary is open on small screens */
+  .order-summary-container.open .total-container,
+  .order-summary-container.open .sub-total-container {
+    display: flex;
+  }
+
+}
+
+
+

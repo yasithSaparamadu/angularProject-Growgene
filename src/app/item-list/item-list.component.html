@@ -16,8 +16,9 @@
         />
       </div>
     </div>
-    <p class="top-text">{{ hoursText }}</p>
-    <br />
+    <br>
+    <p class="bottom-text">{{ hoursText }}</p>
+    
     <div class="hours-container">
       <div class="hours-card-container">
         <ng-container *ngIf="selectedImage !== null">
@@ -63,15 +64,29 @@
 
   <div class="right-section">
     <!-- Display the selected unit price -->
-    <div class="selected-unit-price" *ngIf="selectedHourCardUnitPrice !== null">
-      AED {{ selectedHourCardUnitPrice.toFixed(2) }}
+    <div class="price-moredetails-container">
+      <div
+        class="selected-unit-price"
+        *ngIf="selectedHourCardUnitPrice !== null"
+      >
+        AED {{ selectedHourCardUnitPrice.toFixed(2) }}
+      </div>
+      <div class="more-details" (click)="toggleOrderSummary()">
+        {{ isOrderSummaryOpen ? "Hide Order Summary  ︿" : "Order Summary  ﹀" }}
+      </div>
     </div>
+
     <br />
     <button class="proceed-button">Proceed to Book</button>
     <br />
-    <div class="divider-line"></div>
+
     <br />
-    <div class="order-summary-container">
+    <div
+      class="order-summary-container"
+      [ngClass]="{ open: isOrderSummaryOpen }"
+    >
+      <div class="divider-line"></div>
+      <br>
       <div class="order-summary-border">
         <div class="left-summary">
           <div
@@ -89,6 +104,19 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="sub-total-container" *ngIf="isOrderSummaryOpen">
+      <div class="sub-total-text">Sub Total</div>
+      <div class="sub-total">
+        AED {{ selectedHourCardUnitPrice?.toFixed(2) }}
+      </div>
+    </div>
+
+    <div class="total-container" *ngIf="isOrderSummaryOpen">
+      <div class="total-text">Total (Inclusive 5% VAT)</div>
+      <div class="total" id="totalAmount">
+        AED {{ calculateTotalAmount(selectedHourCardUnitPrice) }}
       </div>
     </div>
   </div>

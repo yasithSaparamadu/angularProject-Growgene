@@ -19,10 +19,16 @@ export class ItemListComponent implements OnInit {
   selectedHourCardIndex: number | null = null;
   selectedHourCardUnitPrice: number | null = null;
 
+  isOrderSummaryOpen = false;
+
   constructor(public apiService: ApiService) {}
 
   ngOnInit() {
     this.getDetails();
+  }
+
+  toggleOrderSummary() {
+    this.isOrderSummaryOpen = !this.isOrderSummaryOpen;
   }
 
   getDetails() {
@@ -46,6 +52,14 @@ export class ItemListComponent implements OnInit {
             )
             .flat();
           this.subTitle = this.getAllSubTitle(response.data.items);
+          if (this.imageUrls.length > 0) {
+            this.selectedImage = 1;
+            this.selectedCardDetails = `${
+              this.cardNumbers[this.selectedImage - 1]
+            } Cleaner,`;
+
+            this.selectDefaultHourCard();
+          }
         } else {
           console.error("Invalid API response format: title not found.");
         }
@@ -79,19 +93,37 @@ export class ItemListComponent implements OnInit {
     return subTitle;
   }
 
-  selectImage(imageNumber: number) {
-    if (this.selectedImage === imageNumber) {
-      // Clicking on the same image card again, unselect it
-      this.selectedImage = null;
-      this.selectedHourCardIndex = null;
-      this.selectedHourCardUnitPrice = null;
-    } else {
-      // Clicking on a different image card, select it and reset the hour card
-      this.selectedImage = imageNumber;
-      this.selectedCardDetails = `${this.cardNumbers[this.selectedImage - 1]} Cleaner,`;
-      this.selectedHourCardIndex = null;
-      this.selectedHourCardUnitPrice = 0;
+  selectDefaultHourCard() {
+    if (this.selectedImage !== null) {
+      const selectedCardItems = this.hoursData[this.selectedImage - 1];
+      const defaultItem = selectedCardItems.find((item: any) => item.isPrefer);
+      if (defaultItem) {
+        this.selectHourCard(
+          defaultItem.unitPrice,
+          this.cardNumbers[this.selectedImage - 1],
+          defaultItem.itemName,
+          selectedCardItems.indexOf(defaultItem)
+        );
+      }
     }
+  }
+  calculateTotalAmount(subTotal: number | null): number {
+    if (subTotal === null) {
+      return 0; // Or any default value you prefer when the subTotal is null
+    }
+
+    const vatPercentage = 0.05; // 5% VAT
+    const vatAmount = subTotal * vatPercentage;
+    const totalAmount = subTotal + vatAmount;
+    return totalAmount;
+  }
+
+  selectImage(imageNumber: number) {
+    this.selectedImage = imageNumber;
+    this.selectedCardDetails = `${
+      this.cardNumbers[this.selectedImage - 1]
+    } Cleaner,`;
+    this.selectDefaultHourCard();
   }
 
   // Function to get the selected card's hours
@@ -129,7 +161,7 @@ export class ItemListComponent implements OnInit {
     index: number
   ) {
     this.selectedHourCardUnitPrice = unitPrice;
-    this.selectedImage = +displayText; // Convert displayText from string to number
+    this.selectedImage = +displayText;
     this.selectedHourCardIndex = index;
     this.selectedCardDetails = `${displayText} Cleaner, ${itemName}`;
   }
